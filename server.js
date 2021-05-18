@@ -1,14 +1,54 @@
 const express = require('express');
 const app = express();
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
+
+const database ={
+    users: [
+        {
+            id: '123',
+            name: 'Ali',
+            email: 'ali@gmail.com',
+            password: 'abc',
+            entries: 0,
+            joined: new Date()
+        },
+        {
+            id: '124',
+            name: 'Raheel',
+            email: 'Raheel@gmail.com',
+            password: 'cde',
+            entries: 0,
+            joined: new Date()
+        }
+    ]
+}
 
 
 
 app.get('/', (req, res) => {
-    res.json('This is working');
+    res.json(database.users);
 })
 
 app.post('/signin', (req, res) => {
-    res.json('signing');
+    if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
+        res.json('success')
+    } else {
+        res.status(404).json('login failed')
+    }
+})
+
+app.post('/register', (req, res) => {
+    const { name, email, password } = req.body;
+    database.users.push({
+        id: '125',
+        name: name,
+        email: email,
+        password: password,
+        entries: 0,
+        joined: new Date()
+    })
+    res.json(database.users[database.users.length-1])
 })
 
 app.listen(3000, ()=> {
