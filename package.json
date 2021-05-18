@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Cheval5/Detect-me-back/issues"
   },
-  "homepage": "https://github.com/Cheval5/Detect-me-back#readme"
+  "homepage": "https://github.com/Cheval5/Detect-me-back#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
