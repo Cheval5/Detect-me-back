@@ -1,8 +1,10 @@
 const express = require('express');
+// const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
 const app = express();
-const bcrypt = require('bcrypt-nodejs');
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
+app.use(cors());
 
 
 const database ={
@@ -48,7 +50,7 @@ app.post('/signin', (req, res) => {
     //     // res = false
     // });
     if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
-        res.json('success')
+        res.json(database.users[0])
     } else {
         res.status(404).json('login failed')
     }
