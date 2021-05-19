@@ -38,6 +38,13 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signin', (req, res) => {
+    // // Load hash from your password DB.
+    // bcrypt.compare("bacon", hash, function(err, res) {
+    //     // res == true
+    // });
+    // bcrypt.compare("veggies", hash, function(err, res) {
+    //     // res = false
+    // });
     if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
         res.json('success')
     } else {
@@ -47,9 +54,9 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
     const { name, email, password } = req.body;
-    bcrypt.hash(password, null, null, function(err, hash) {
-        console.log(hash);
-    });
+    // bcrypt.hash(password, null, null, function(err, hash) {
+    //     console.log(hash);
+    // });
     database.users.push({
         id: '125',
         name: name,
@@ -90,15 +97,6 @@ app.put('/image', (req, res) => {
         res.status(404).json('user not found')
     }
 })
-
-
-// // Load hash from your password DB.
-// bcrypt.compare("bacon", hash, function(err, res) {
-//     // res == true
-// });
-// bcrypt.compare("veggies", hash, function(err, res) {
-//     // res = false
-// });
 
 app.listen(3000, ()=> {
     console.log('app is running on port 3000');
