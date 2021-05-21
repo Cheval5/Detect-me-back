@@ -77,29 +77,32 @@ app.post('/register', (req, res) => {
     // bcrypt.hash(password, null, null, function(err, hash) {
     //     console.log(hash);
     // });
-    database.users.push({
-        id: '125',
-        name: name,
+    db('users')
+    .returning('*')
+    .insert({
         email: email,
-        password: password,
-        entries: 0,
-        joined: new Date()
-    })
-    res.json(database.users[database.users.length-1])
+        name: name,
+        joined: new Date(),
+    }).then(user => {
+        res.json(user[0]);
+    }).catch(err => res.status(400).json('unable to register'))
 })
 
 app.get('/profile/:id', (req, res) => {
     const { id } = req.params;
-    let found = false;
-    database.users.forEach(user => {
-        if(user.id === id){
-            found = true;
-            return res.json(user)
-        }
+    db.select('*')
+    .from('users')
+    .where({
+        id:id
     })
-    if(!found){
-        res.status(404).json('user not found')
-    }
+    .then(user => {
+        if(user.length){
+            res.json(user[0])
+        } else {
+            res.status(400).jon('user not found')
+        }
+    }).cath(err => res.status(400).json('error getting user'))
+    
 })
 
 
