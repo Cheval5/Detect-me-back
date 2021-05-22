@@ -1,6 +1,6 @@
 
 
-const handlesignIn = (req, res, db, bcrypt) => {
+const handlesignIn = (db, bcrypt) => (req, res) => {
     db
     .select('email', 'hash')
     .from('login')
