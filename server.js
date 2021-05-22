@@ -11,10 +11,8 @@ const image = require('./controllers/images');
 const db = knex({
     client: 'pg',
     connection: {
-        host: 'postgresql-cylindrical-08918',
-        user: 'aliakbarchevalwala',
-        password: 'rootroot',
-        database: 'detect-me'
+        host: process.env.DATABASE_URL,
+        ssl: true,
     }
 });
 
