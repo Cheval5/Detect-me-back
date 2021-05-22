@@ -18,9 +18,9 @@ const db = knex({
     }
 });
 
-db.select('*').from('users').then(data => {
-    console.log(data);
-})
+// db.select('*').from('users').then(data => {
+//     console.log(data);
+// })
 
 const app = express();
 app.use(express.urlencoded({extended:false}));
@@ -29,9 +29,7 @@ app.use(cors());
 
 
 
-app.get('/',(_,res) => { 
-    res.json(db.select('*').from('users'));
-})
+app.get('/', (req, res) => { res.send('it is working')})
 
 app.post('/signin',  signIn.handlesignIn( db, bcrypt))
 
